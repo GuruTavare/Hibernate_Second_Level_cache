@@ -1,0 +1,45 @@
+
+<!DOCTYPE hibernate-configuration PUBLIC
+	"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+	"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+
+<hibernate-configuration>
+	<session-factory>
+		<!-- Datasource -->
+		<property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+		<property name="connection.url">jdbc:mysql://localhost:3306/hibernate_ii-level_cache</property>
+		<property name="connection.username">root</property>
+		<property name="connection.password">Guru5798@</property>
+		<!-- Hibernate Properties -->
+		<property name="dialect">org.hibernate.dialect.MySQL8Dialect</property>
+		<property name="hbm2ddl.auto">create</property>
+		<property name="show_sql">true</property>
+		<property name="format_sql">true</property>
+
+
+		<!--Below properties are used to Activate Second level cache also add @Cache(usage) 
+			annotation to the Entity class(the class which we are going to mapped with 
+			database.) -->
+		<property name="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.EhCacheRegionFactory</property>
+		<property name="hibernate.cache.use_second_level_cache">false</property>
+
+		<!--If we want to add some extra properties (like TimeToIdle,TimeToLive,Eternal,MaxElement)to 
+			the EH cache then we have Add extra xml file and give reference in hibernate.cfg.xml 
+			file as below -->
+		<property name="net.sf.ehcache.configurationResourceName">/myehcache.xml"></property>
+
+
+		<!-- Mapping Details -->
+		<!-- <mapping resource="employee.hbm.xml" /> -->
+		<!--below classes are used with @Annotations instead of using mapping file(hbm.xml) 
+			where we mapped each field of required class (field by field with database) -->
+		<mapping class="com.prowings.entity.Employee" />
+
+
+		<!-- <mapping package="com.prowings.entity_Annotation" /> -->
+
+
+
+	</session-factory>
+</hibernate-configuration>
